@@ -78,6 +78,17 @@ class OCRProcessor:
             print(f"Error: {e}")
 
 
+    """
+    03. Extracting Text with pytesseract
+
+    - Load each preprocessed (grayscale) image.
+    - Extract text using pytesseract.
+    - Handle unreadable/blank text.
+
+    """
+
+
+
 
         
 
