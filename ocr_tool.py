@@ -1,14 +1,16 @@
 import os
 
-""""
-01. Setup & Loading Images from a Folder
 
-- Get the folder path from the user.
-- List all image files in that folder.
-- Handle errors like "folder not found" or "no images".
-
-"""
 class OCRProcessor:
+
+    """"
+    01. Setup & Loading Images from a Folder
+
+    - Get the folder path from the user.
+    - List all image files in that folder.
+    - Handle errors like "folder not found" or "no images".
+
+    """
     def load_images(folder_path):
         # Check if folder exists
         if not os.path.exists(folder_path):
@@ -32,3 +34,17 @@ class OCRProcessor:
 
     except Exception as e:
         print(f"Error: {e}")
+
+    """"
+    02. Opening & Preprocessing Images (Grayscale)
+
+    - Open images safely using Pillow (PIL).
+    - Convert them to grayscale for better OCR accuracy.
+    - Handle common errors like corrupted or unreadable files.
+
+    """
+
+    
+
+
+    
