@@ -1,4 +1,5 @@
 import os
+from PIL import Image, ImageOps # used to import the Image and ImageOps modules from the Python Imaging Library (Pillow).
 
 
 class OCRProcessor:
@@ -26,14 +27,15 @@ class OCRProcessor:
         
         return images
     
-    # Running the step
+    '''
+    # ============Running the step
     try:
         folder = input("Enter image folder path: ").strip()
         image_files = load_images(folder)
         print(f"Found {len(image_files)} image(s): {image_files}")
 
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error: {e}")'''
 
     """"
     02. Opening & Preprocessing Images (Grayscale)
@@ -44,7 +46,47 @@ class OCRProcessor:
 
     """
 
+    def preprocess_image(image_path):
+        try:
+            # Open image safely
+            with Image.open(image_path) as img:
+                # Convert to grayscale
+                grey_img = ImageOps.grayscale(img)
+                return grey_img
+            
+        except FileNotFoundError:
+            print(f"❌ File not found: {image_path}")
+            return None
+        
+        except OSError:
+            # Raised if file is not an image or is corrupted
+            print(f"❌ Cannot open image (corrupted or invalid): {image_path}")
+            return None
+        
+        # ============Running the step
+        folder = input("Enter image folder path: ").strip()
+        try:
+            image_files = load_images(folder) #01
+            for img_name in image_files:
+                path = os.path.join(folder, img_name)
+                grey_img = preprocess_image(image_path)
+
+                if grey_img:
+                    grey_img.show() # Opens image viewer (for testing)
+                    print(f"Preprocessed {img_name}")
+        except Exception as e:
+            print(f"Error: {e}")
+
+
+
+        
+
+
+
+
     
+
+
 
 
     
