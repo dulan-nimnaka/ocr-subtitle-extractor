@@ -45,7 +45,7 @@ class OCRProcessor:
     - Handle common errors like corrupted or unreadable files.
 
     """
-
+    '''
     def preprocess_image(image_path):
         try:
             # Open image safely
@@ -76,7 +76,7 @@ class OCRProcessor:
                     print(f"Preprocessed {img_name}")
         except Exception as e:
             print(f"Error: {e}")
-
+    '''
 
     """
     03. Extracting Text with pytesseract
