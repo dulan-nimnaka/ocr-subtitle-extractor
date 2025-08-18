@@ -1,4 +1,5 @@
 import os
+import pytesseract # used to import the pytesseract module for Optical Character Recognition (OCR).
 from PIL import Image, ImageOps # used to import the Image and ImageOps modules from the Python Imaging Library (Pillow).
 
 
@@ -45,7 +46,7 @@ class OCRProcessor:
     - Handle common errors like corrupted or unreadable files.
 
     """
-    '''
+    
     def preprocess_image(image_path):
         try:
             # Open image safely
@@ -63,6 +64,7 @@ class OCRProcessor:
             print(f"❌ Cannot open image (corrupted or invalid): {image_path}")
             return None
         
+        '''
         # ============Running the step
         folder = input("Enter image folder path: ").strip()
         try:
@@ -75,8 +77,8 @@ class OCRProcessor:
                     grey_img.show() # Opens image viewer (for testing)
                     print(f"Preprocessed {img_name}")
         except Exception as e:
-            print(f"Error: {e}")
-    '''
+            print(f"Error: {e}")'''
+    
 
     """
     03. Extracting Text with pytesseract
@@ -86,6 +88,44 @@ class OCRProcessor:
     - Handle unreadable/blank text.
 
     """
+
+    def extract_text_from_image(image, lang="eng"):
+        try:
+            text = pytesseract.image_to_string(image, lang=lang)
+            text = text.strip()
+            if not text:
+                return None # if found No readable text
+            return text
+        
+        except pytesseract.TesseractNotFoundError:
+            print("❌ Tesseract OCR is not installed or not in PATH.")
+            return None
+        except Exception as e:
+            print(f"❌ Error during OCR: {e}")
+            return None
+        
+        #============Running the step
+        if __name__ == "__main__":
+            folder = input("Enter image folder path: ").strip()
+
+            try:
+                image_files = load_images(folder) # from step 01
+                for img_name in image_files:
+                    path = os.path.join(folder, img_name)
+                    grey_img = preprocess_image(path) # from step 02
+
+                    if grey_img:
+                        text = extract_text_from_image(grey_img)
+                        if text:
+                            print(f"✅ {img_name} text: \n{text}\n")
+                        else:
+                            print(f"⚠️ No text found in {img_name}")
+            except Exception as e:
+                print(f"Error: {e}")
+
+            
+
+
 
 
 
